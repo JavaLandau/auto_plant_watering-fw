@@ -1,0 +1,36 @@
+{
+    "version": "2.0.0",
+    "tasks": [
+        {
+            "type": "shell",
+            "label": "AutoPlantWater: make",
+            "command": "cmake -G \"MinGW Makefiles\" -B \"${workspaceFolder}/build\"",
+            "detail": "Generate Makefiles"
+        },
+        {
+            "type": "shell",
+            "label": "AutoPlantWater: rebuild",
+            "command": "cmake --build \"${workspaceFolder}/build\"",
+            "detail": "Rebuild project"
+        },
+        {
+            "type": "shell",
+            "label": "AutoPlantWater: flash",
+            "command": "cmake --build \"${workspaceFolder}/build\" --target flash",
+            "detail": "Flash firmware"
+        },
+        {
+            "type": "shell",
+            "label": "AutoPlantWater: clean",
+            "command": "cmake --build \"${workspaceFolder}/build\" --target clean",
+            "detail": "Clean project"
+        },
+        {
+            "type": "shell",
+            "label": "AutoPlantWater: build",
+            "detail": "Regenerate Makefiles and build project",
+            "dependsOrder": "sequence",
+            "dependsOn": ["AutoPlantWater: make", "AutoPlantWater: rebuild"]
+        },
+    ]
+}

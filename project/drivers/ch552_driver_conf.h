@@ -1,0 +1,6 @@
+#ifndef CH552_DRIVER_CONF_H
+#define CH552_DRIVER_CONF_H
+
+#define CH552_DELAY_MS_HW
+
+#endif //CH552_DRIVER_CONF_H
