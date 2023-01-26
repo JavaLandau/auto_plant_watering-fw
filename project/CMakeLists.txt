@@ -17,11 +17,15 @@ set(HEADERS "drivers"
 
 set(SOURCES "application/main.c"
             "drivers/ch552/src/ch552_sys.c"
+            "drivers/ch552/src/ch552_gpio.c"
+            "drivers/ch552/src/ch552_timer.c"
+            "drivers/ch552/src/ch552_uart.c"
+            "drivers/ch552/src/ch552_adc.c"
 )
 
 include_directories(${HEADERS})
 
-set(CMAKE_C_FLAGS "-V -mmcs51 --model-small --xram-size 0x0400 --xram-loc 0x0000 --code-size 0x3800")
+set(CMAKE_C_FLAGS "-V -mmcs51 --stack-auto --model-small --xram-size 0x0400 --xram-loc 0x0000 --code-size 0x3800")
 
 add_executable(autoplant_watering ${SOURCES})
 

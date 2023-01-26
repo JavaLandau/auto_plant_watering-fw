@@ -59,6 +59,8 @@ uint8_t ch552_sys_clk_set(uint32_t clk_value)
 //    CLOCK_CFG |= bOSC_EN_XT;      // Enable external crystal
 //    CLOCK_CFG & = ~bOSC_EN_INT;   // Turn off the internal crystal
 
+    PCON |= SMOD;
+
     uint8_t sys_clk_mask = 0x7;
 
     if (clk_value == 24000000)
@@ -85,4 +87,9 @@ uint8_t ch552_sys_clk_set(uint32_t clk_value)
     SAFE_MOD = 0x00;
 
     return RES_OK;
+}
+
+uint32_t ch552_sys_clk_get(void)
+{
+    return cur_sys_clk;
 }
