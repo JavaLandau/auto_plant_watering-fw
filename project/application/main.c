@@ -15,13 +15,13 @@
 #define LED_PIN             GPIO_PIN_7
 #define PUMP_PIN            GPIO_PIN_5
 
-#define MIN_TO_SEC(D)       ((D) * 60)
-#define HOURS_TO_SEC(D)     ((D) * 3600)
-#define DAY_TO_SEC(D)       ((D) * 86400)
+#define MIN_TO_SEC(D)       ((D) * 60UL)
+#define HOURS_TO_SEC(D)     ((D) * 3600UL)
+#define DAY_TO_SEC(D)       ((D) * 86400UL)
 
-#define SEC_TO_MIN(D)       ((D) / 60)
-#define SEC_TO_HOURS(D)     ((D) / 3600)
-#define SEC_TO_DAY(D)       ((D) / 86400)
+#define SEC_TO_MIN(D)       ((D) / 60UL)
+#define SEC_TO_HOURS(D)     ((D) / 3600UL)
+#define SEC_TO_DAY(D)       ((D) / 86400UL)
 
 #define VCC_IN_DV           50
 
