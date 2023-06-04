@@ -19,6 +19,8 @@ set(SOURCES "application/main.c"
             "drivers/ch552/src/ch552_timer.c"
             "drivers/ch552/src/ch552_uart.c"
             "drivers/ch552/src/ch552_adc.c"
+            "drivers/ch552/src/ch552_pwm.c"
+            "drivers/ch552/src/ch552_dataflash.c"
 )
 
 include_directories(${HEADERS})
