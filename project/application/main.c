@@ -10,7 +10,7 @@
 #include "ch552_pwm.h"
 #include "ch552_dataflash.h"
 
-#define FW_VERSION          "1.0"
+#define FW_VERSION          "1.1"
 
 #define FSYS                6000000
 
@@ -36,6 +36,7 @@
 #define DELAY_MAX_VAL_SEC     DAY_TO_SEC(7)
 #define MIN_DELAY_VAL_DV      0
 #define MAX_DELAY_VAL_DV      VCC_IN_DV
+#define DELAY_STEP            DAY_TO_SEC(1)
 
 #define PUMP_PWM_DEFAULT      255
 
@@ -212,6 +213,7 @@ static void main(void) {
             }
 
             delay_time = (DELAY_MAX_VAL_SEC * (val_dv1 - MIN_DELAY_VAL_DV)) / (MAX_DELAY_VAL_DV - MIN_DELAY_VAL_DV);
+            delay_time = DELAY_STEP * (delay_time / DELAY_STEP)  + ((delay_time < DELAY_MAX_VAL_SEC) ? DELAY_STEP : 0);
             pump_time = (PUMP_MAX_VAL_SEC * (val_dv2 - MIN_PUMP_VAL_DV)) / (MAX_PUMP_VAL_DV - MIN_PUMP_VAL_DV);
 
             uint32_t expired_time = pump_enabled ? pump_time : delay_time;
@@ -246,10 +248,13 @@ static void main(void) {
         if (++trace_cnt >= (TRACE_PERIOD_MS / POLL_PERIOD_MS)) {
             printf_tiny("ADC %d/%d\r\n", (uint16_t)val_dv1, (uint16_t)val_dv2);
 
-            if (!pump_adjust_enabled)
-                sec_format_printf(pump_enabled ? "PUMP" : "DELAY", cnt_sec);
-            else
-                printf_tiny("PWM PUMP %d", prev_pump_pwm);
+            if (!pump_adjust_enabled) {
+                printf_tiny("MODE: %s\r\n", pump_enabled ? "PUMP" : "DELAY");
+                sec_format_printf("TIME", cnt_sec);
+                sec_format_printf("TARGET", pump_enabled ? pump_time : delay_time);
+            } else {
+                printf_tiny("PWM PUMP %d\r\n", prev_pump_pwm);
+            }
 
             printf_tiny("\r\n");
 
